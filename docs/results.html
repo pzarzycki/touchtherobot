@@ -48,49 +48,26 @@
         }
     </style>
     <div id="header">
-        <label for="person">Person:</label>
-        <select name="person" id="person"></select>
+        <div class="explain" style="width: 40px;">&nbsp;</div>
         <div class="explain">A1-A11: Names ('Napisy'), B1-B11: Numbers ('Cyfry')</div>
-        <div class="explain"><a href="#">[ plots ]</a> <a href="results.html">[ results ]</a></div>
+        <div class="explain"><a href="plots.html">[ plots ]</a> <a href="#">[ results ]</a></div>
     </div>
 
     <div id="plot" style="width: 100%; height: 100%; text-align: center;"></div>
 
 
     <script type="text/javascript">
-        fetch('all_indexes.json')
-            .then(response => response.text())
-            .then(text => {
+        loadPlots();
 
-                ids = JSON.parse(text);
-                var x = document.getElementById("person");
-
-                for (idx in ids.ids) {
-                    var option = document.createElement("option");
-                    option.text = ids.ids[idx];
-                    x.add(option);
-                }
-
-                x.addEventListener('change', (event) => {
-                    const id = event.target.value;
-                    loadPlot(id);
-                });
-
-                loadPlot(ids.ids[0]);
-
-            });
-
-        function loadPlot(personId) {
+        function loadPlots() {
             var plotDiv = document.getElementById("plot");
             plotDiv.innerHTML = "<div class='msg'>loading...</div>";
 
             var plotDiv = document.getElementById("plot");
-            //plotDiv.innerHTML = "<div class='title'>Subsequence 1</div><div id='fig01'>loading...</div><div class='title'>Subsequence 2</div><div id='fig02'>loading...</div><div class='title'>Subsequence 3</div><div id='fig03'>loading...</div>";
-            plotDiv.innerHTML = "<div id='fig01'><div class='loading'>loading...</div></div><div class='title'>Subsequence 1</div><div id='fig02'><div class='loading'>loading...</div></div><div class='title'>Subsequence 2</div><div id='fig03'><div class='loading'>loading...</div></div><div class='title'>Subsequence 3</div>";
+            plotDiv.innerHTML = "<div id='fig01'><div class='loading'>loading...</div></div><div class='title'>Variant 1</div><div id='fig02'><div class='loading'>loading...</div></div><div class='title'>Variant 2</div>";
 
-            loadSinglePlot("plots/plot_" + personId + "_0.json", "fig01");
-            loadSinglePlot("plots/plot_" + personId + "_1.json", "fig02");
-            loadSinglePlot("plots/plot_" + personId + "_2.json", "fig03");
+            loadSinglePlot("result-v0.json", "fig01");
+            loadSinglePlot("result-v1.json", "fig02");
 
         }
 
@@ -114,9 +91,6 @@
                     figDiv.innerHTML = "<div class='msg'>Can not load data here </div>";
                 });
         }
-
-        // mpld3.draw_figure("fig02", json02);
-        // mpld3.draw_figure("fig03", json03);
     </script>
 </body>
 
